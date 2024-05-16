@@ -2,30 +2,63 @@ package jpaswing.ui;
 
 import jpaswing.controller.PilotoController;
 import jpaswing.entity.Piloto;
-import jpaswing.repository.PilotoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 
 @Component
-public class PilotoUI extends JFrame {
+public class PilotoUI extends JFrame implements ListSelectionListener {
     private JTextField fieldNumero;
     private JTextField fieldNombre;
     private JTextField fieldNacimiento;
     private JTextField fieldEscuderia;
     private JTextField fieldNacionalidad;
     private JTextField fieldDebut;
-    private JPanel panel1;
+    private JPanel panel;
     private Piloto piloto;
     private JButton btnFirst;
     private JButton btnPrevious;
     private JButton btnNext;
     private JButton btnLast;
     private PilotoController pilotoController;
+    private JList list;
+    private JSplitPane SplitPanel;
+
+    public SplitPanel() {
 
 
-    private void next(){
+        list = new JList((ListModel) fieldNombre);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(0);
+        list.addListSelectionListener(this);
+
+    JScrollPane listScrollPane = new JScrollPane(list);
+        SplitPanel = new JSplitPane();
+        SplitPanel.setFont(SplitPanel.getFont().deriveFont(Font.ITALIC));
+        SplitPanel.setAlignmentX(JLabel.CENTER);
+
+    JScrollPane pictureScrollPane = new JScrollPane(SplitPanel);
+
+        SplitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+                listScrollPane, pictureScrollPane);
+        SplitPanel.setOneTouchExpandable(true);
+        SplitPanel.setDividerLocation(150);
+
+        Dimension minimumSize = new Dimension(100, 50);
+        listScrollPane.setMinimumSize(minimumSize);
+        pictureScrollPane.setMinimumSize(minimumSize);
+
+        SplitPanel.setPreferredSize(new Dimension(400, 200));
+
+        public void valueChanged(ListSelectionEvent e) {
+            JList list = (JList)e.getSource();
+            updateLabel(fieldNombre);
+        }
+
+            /*private void next(){
         this.piloto = pilotoController.next().orElse(null);
         updateData();
     }
@@ -42,9 +75,7 @@ public class PilotoUI extends JFrame {
         updateData();
     }
 
-
-    @Autowired
-    public PilotoUI(PilotoRepository pilotoRepository, PilotoController pilotoController){
+ public PilotoUI(PilotoRepository pilotoRepository, PilotoController pilotoController){
         this.pilotoController = pilotoController;
         setTitle("Pilotos Formula 1");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -65,16 +96,19 @@ public class PilotoUI extends JFrame {
     }
 
     private void initComponents(){
-        panel1 = new JPanel();
+        panel = new JPanel();
         fieldNumero = new JTextField(10);
         fieldNombre = new JTextField(10);
         fieldNacimiento = new JTextField(10);
         fieldEscuderia = new JTextField(10);
         fieldNacionalidad = new JTextField(10);
         fieldDebut = new JTextField(10);
-        JLabel l;
+        JLabel l;*/
 
-        this.setLayout(null);
+
+
+
+        /*this.setLayout(null);
         panel1.setLayout(null);
         panel1.setBounds(0, 0, 500, 650);
 
@@ -135,7 +169,7 @@ public class PilotoUI extends JFrame {
         panel1.add(btnNext);
 
         btnLast.setBounds(260, 260, 60,40);
-        panel1.add(btnLast);
+        panel1.add(btnLast);*/
     }
 
 }
