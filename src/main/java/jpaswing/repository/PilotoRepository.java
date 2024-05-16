@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface PilotoRepository extends CrudRepository<Piloto, String> {
+public interface PilotoRepository extends CrudRepository<Piloto, Long> {
 
-    Piloto findFirstByOrderByNombreAsc();
+    Piloto findFirstByOrderByIdAsc();
 }

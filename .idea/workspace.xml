@@ -5,24 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6be5473a-dd6d-46da-b905-0d713b13242e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/SwingApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/entity/Piloto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/repository/PilotoRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/PilotoUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main/java/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/java/AppTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/controller/PilotoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/repository/PilotoRepositoryPagination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/entity/Piloto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/entity/Piloto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/repository/PilotoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/repository/PilotoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/PilotoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/PilotoUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +42,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Lanzador.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -86,6 +77,13 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration name="Lanzador" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="jpaswing.SwingApplication" />
+      <module name="swing-jpa-skeleton" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Formula1" />
       <method v="2">
@@ -118,11 +116,25 @@
       <option name="presentableId" value="Default" />
       <updated>1715671888157</updated>
       <workItem from="1715671889172" duration="6000" />
-      <workItem from="1715672232339" duration="3586000" />
+      <workItem from="1715672232339" duration="3829000" />
+      <workItem from="1715839607998" duration="7804000" />
     </task>
+    <task id="LOCAL-00001" summary="Version 0.0">
+      <option name="closed" value="true" />
+      <created>1715676035038</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715676035038</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Version 0.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.0" />
   </component>
 </project>

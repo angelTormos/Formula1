@@ -6,11 +6,10 @@ import javax.swing.*;
 @Entity
 public class Piloto {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
     private int Numero;
-
-    @Column(name = "Nombre")
     private String Nombre;
-
     private String Nacimiento;
     private String Escuderia;
     private String Nacionalidad;
