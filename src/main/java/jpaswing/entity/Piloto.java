@@ -1,10 +1,8 @@
 package jpaswing.entity;
 import jakarta.persistence.*;
 
-import javax.swing.*;
-
 @Entity
-public class Piloto {
+public class Escuderia {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -14,17 +12,20 @@ public class Piloto {
     private String Escuderia;
     private String Nacionalidad;
     private String Debut;
+    private String Imagen;
     public Piloto(){
 
     }
 
-    public Piloto(int numero, String nombre, String nacimiento, String escuderia, String nacionalidad, String debut) {
+    public Piloto(Long id, int numero, String nombre, String nacimiento, String escuderia, String nacionalidad, String debut, String imagen) {
+        this.id = id;
         Numero = numero;
         Nombre = nombre;
         Nacimiento = nacimiento;
         Escuderia = escuderia;
         Nacionalidad = nacionalidad;
         Debut = debut;
+        Imagen = imagen;
     }
 
     public int getNumero() {
@@ -75,9 +76,17 @@ public class Piloto {
         Debut = debut;
     }
 
+    public String getImagen() {
+        return Imagen;
+    }
+
+    public void setImagen(String imagen) {
+        Imagen = imagen;
+    }
+
     @Override
     public String toString() {
-        return Numero + " - " + Nombre + " - " + Nacimiento + " - " + Escuderia + " - " + Nacionalidad + " - " + Debut;
+        return Nombre;
     }
 }
 

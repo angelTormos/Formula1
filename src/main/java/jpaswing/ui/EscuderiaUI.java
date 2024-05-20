@@ -1,6 +1,6 @@
 package jpaswing.ui;
 
-import jpaswing.entity.Piloto;
+import jpaswing.entity.Escuderia;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -15,24 +15,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 @Component
-public class PilotoUI extends JFrame implements ListSelectionListener {
+public class EscuderiaUI extends JFrame implements ListSelectionListener {
     private JLabel labelImagen;
-    private JTextField fieldNumero;
     private JTextField fieldNombre;
-    private JTextField fieldNacimiento;
-    private JTextField fieldEscuderia;
+    private JTextField fieldMotor;
+    private JTextField fieldChasis;
     private JTextField fieldNacionalidad;
-    private JTextField fieldDebut;
     private JPanel detailPanel;
     private JPanel imagePanel;
+    private JButton btnFirst;
+    private JButton btnPrevious;
+    private JButton btnNext;
+    private JButton btnLast;
     private JList<Piloto> list;
     private JSplitPane splitPanel;
     private DefaultListModel<Piloto> listModel;
-    private JButton btnBackToMain;
 
     private static final String DB_URL = "jdbc:sqlite:src/main/resources/formula1";
 
-    public PilotoUI() {
+    public EscuderiaUI() {
         initComponents();
         initLayout();
         try {
@@ -44,12 +45,16 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
 
     private void initComponents() {
         labelImagen = new JLabel();
-        fieldNumero = new JTextField(20);
         fieldNombre = new JTextField(20);
-        fieldNacimiento = new JTextField(20);
-        fieldEscuderia = new JTextField(20);
+        fieldMotor = new JTextField(20);
+        fieldChasis = new JTextField(20);
         fieldNacionalidad = new JTextField(20);
-        fieldDebut = new JTextField(20);
+
+
+        btnFirst = new JButton("First");
+        btnPrevious = new JButton("Previous");
+        btnNext = new JButton("Next");
+        btnLast = new JButton("Last");
 
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
@@ -58,31 +63,29 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
 
         detailPanel = new JPanel();
         detailPanel.setLayout(new GridLayout(6, 2));
-        detailPanel.add(new JLabel("Dorsal"));
-        detailPanel.add(fieldNumero);
+
         detailPanel.add(new JLabel("Nombre"));
         detailPanel.add(fieldNombre);
         detailPanel.add(new JLabel("Nacimiento"));
-        detailPanel.add(fieldNacimiento);
+        detailPanel.add(fieldMotor);
         detailPanel.add(new JLabel("Escuderia"));
-        detailPanel.add(fieldEscuderia);
+        detailPanel.add(fieldChasis);
         detailPanel.add(new JLabel("Nacionalidad"));
         detailPanel.add(fieldNacionalidad);
-        detailPanel.add(new JLabel("Debut"));
-        detailPanel.add(fieldDebut);
+
 
         imagePanel = new JPanel();
         imagePanel.setLayout(new BorderLayout());
         imagePanel.add(labelImagen, BorderLayout.CENTER);
-
-        btnBackToMain = new JButton("Volver al menu principal");
-        btnBackToMain.addActionListener(e -> volverAMainUI());
     }
 
     private void initLayout() {
         JPanel listPanel = new JPanel(new BorderLayout());
         JScrollPane listScrollPane = new JScrollPane(list);
         listPanel.add(listScrollPane, BorderLayout.CENTER);
+
+        JPanel buttonPanel = createButtonPanel();
+        listPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         JSplitPane rightSplitPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, detailPanel, imagePanel);
         rightSplitPanel.setOneTouchExpandable(true);
@@ -99,16 +102,21 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
 
         splitPanel.setPreferredSize(new Dimension(800, 600));
 
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        bottomPanel.add(btnBackToMain);
-        add(bottomPanel, BorderLayout.SOUTH);
-
+        setLayout(new BorderLayout());
         add(splitPanel, BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
     }
 
+    private JPanel createButtonPanel() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(btnFirst);
+        buttonPanel.add(btnPrevious);
+        buttonPanel.add(btnNext);
+        buttonPanel.add(btnLast);
+        return buttonPanel;
+    }
 
     private void cargarDatos() throws SQLException {
         Connection conn = null;
@@ -118,21 +126,19 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
         try {
             conn = DriverManager.getConnection(DB_URL);
             stmt = conn.createStatement();
-            String sql = "SELECT imagen, numero, nombre, nacimiento, escuderia, nacionalidad, debut FROM Piloto";
+            String sql = "SELECT imagen, nombre, chasis, motor, nacionalidad FROM Escuderia";
             rs = stmt.executeQuery(sql);
 
             listModel.clear();
             while (rs.next()) {
-                Piloto piloto = new Piloto();
-                piloto.setImagen(rs.getString("imagen"));
-                piloto.setNumero(rs.getInt("numero"));
-                piloto.setNombre(rs.getString("nombre"));
-                piloto.setNacimiento(rs.getString("nacimiento"));
-                piloto.setEscuderia(rs.getString("escuderia"));
-                piloto.setNacionalidad(rs.getString("nacionalidad"));
-                piloto.setDebut(rs.getString("debut"));
+                Escuderia escuderia = new Escuderia();
+                escuderia.setImagen(rs.getString("imagen"));
+                escuderia.setNombre(rs.getString("nombre"));
+                escuderia.setChasis(rs.getString("chasis"));
+                escuderia.setMotor(rs.getString("motor"));
+                escuderia.setNacionalidad(rs.getString("nacionalidad"));
 
-                listModel.addElement(piloto);
+                listModel.addElement(escuderia);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,31 +157,36 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        JList<Piloto> list = (JList<Piloto>) e.getSource();
-        Piloto selectedPiloto = list.getSelectedValue();
-        if (selectedPiloto != null) {
-            updateFields(selectedPiloto);
+        JList<Escuderia> list = (JList<Escuderia>) e.getSource();
+        Escuderia selectedEscuderia = list.getSelectedValue();
+        if (selectedEscuderia != null) {
+            updateFields(selectedEscuderia);
         }
     }
 
-    private void updateFields(Piloto piloto) {
+    private void updateFields(Escuderia escuderia) {
         try {
-            URL url = new URL(piloto.getImagen());
-            ImageIcon imageIcon = new ImageIcon(url);
-            labelImagen.setIcon(imageIcon);
+            URL url = new URL(escuderia.getImagen());
+            ImageIcon originalIcon = new ImageIcon(url);
+
+            Image originalImage = originalIcon.getImage();
+            int width = originalImage.getWidth(null);
+            int height = originalImage.getHeight(null);
+            int newWidth = 350;
+            int newHeight = (int) (((double) newWidth / width) * height);
+            Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+            labelImagen.setIcon(new ImageIcon(scaledImage));
         } catch (Exception e) {
             labelImagen.setIcon(null);
             e.printStackTrace();
         }
 
-        fieldNumero.setText(String.valueOf(piloto.getNumero()));
-        fieldNombre.setText(piloto.getNombre());
-        fieldNacimiento.setText(piloto.getNacimiento());
-        fieldEscuderia.setText(piloto.getEscuderia());
-        fieldNacionalidad.setText(piloto.getNacionalidad());
-        fieldDebut.setText(piloto.getDebut());
+        fieldNombre.setText(escuderia.getNombre());
+        fieldMotor.setText(escuderia.getNacimiento());
+        fieldChasis.setText(escuderia.getEscuderia());
+        fieldNacionalidad.setText(escuderia.getNacionalidad());
     }
-
     private void volverAMainUI() {
         MainUI mainUI = new MainUI();
         mainUI.setVisible(true);

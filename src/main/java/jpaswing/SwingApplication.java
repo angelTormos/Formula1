@@ -1,5 +1,6 @@
 package jpaswing;
 
+import jpaswing.ui.MainUI;
 import jpaswing.ui.PilotoUI;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,8 +18,8 @@ public class SwingApplication {
                 .run(args);
 
         EventQueue.invokeLater(()  -> {
-                PilotoUI pilotoUI = context.getBean(PilotoUI.class);
-                pilotoUI.setVisible(true);
+                MainUI mainUI = context.getBean(MainUI.class);
+                mainUI.setVisible(true);
         });
     }
 }

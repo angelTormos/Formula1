@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class PilotoController {
+public class EscuderiaController {
     private final PilotoRepository pilotoRepository;
     private final PilotoRepositoryPagination piltosRepositoryPagination;
     private int currentPage = 0;
     private int count;
     private Optional<Piloto> currentPiloto;
     @Autowired
-    public PilotoController(PilotoRepository pilotoRepository, PilotoRepositoryPagination pilotoRepositoryPagination){
+    public EscuderiaController(PilotoRepository pilotoRepository, PilotoRepositoryPagination pilotoRepositoryPagination){
         this.pilotoRepository = pilotoRepository;
         this.piltosRepositoryPagination = pilotoRepositoryPagination;
         this.count = piltosRepositoryPagination.countAllRecords();
