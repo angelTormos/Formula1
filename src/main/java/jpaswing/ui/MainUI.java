@@ -12,12 +12,16 @@ import java.awt.event.ActionListener;
 public class MainUI extends JFrame implements ActionListener {
     private JButton btnPiloto;
     private JButton btnEscuderia;
+    private JButton btnCircuito;
 
     @Autowired
     private PilotoUI pilotoUI;
 
     @Autowired
     private EscuderiaUI escuderiaUI;
+
+    @Autowired
+    private CircuitoUI circuitoUI;
 
     public MainUI() {
         initComponents();
@@ -29,12 +33,15 @@ public class MainUI extends JFrame implements ActionListener {
         btnPiloto.addActionListener(this);
         btnEscuderia = new JButton("Abrir lista escuderias");
         btnEscuderia.addActionListener(this);
+        btnCircuito = new JButton("Abrir lista circuitos");
+        btnCircuito.addActionListener(this);
     }
 
     private void initLayout() {
         JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
         buttonPanel.add(btnPiloto);
         buttonPanel.add(btnEscuderia);
+        buttonPanel.add(btnCircuito);
 
         JPanel imagePanel = new JPanel();
         JLabel imageLabel = new JLabel();
@@ -61,6 +68,8 @@ public class MainUI extends JFrame implements ActionListener {
             pilotoUI.setVisible(true);
         } else if (e.getSource() == btnEscuderia) {
             escuderiaUI.setVisible(true);
+        } else if (e.getSource() == btnCircuito) {
+            circuitoUI.setVisible(true);
         }
     }
 

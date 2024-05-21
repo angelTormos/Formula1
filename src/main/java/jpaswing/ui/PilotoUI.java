@@ -7,6 +7,10 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,6 +33,7 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
     private JSplitPane splitPanel;
     private DefaultListModel<Piloto> listModel;
     private JButton btnBackToMain;
+    private JButton btnSaveToFile;
 
     private static final String DB_URL = "jdbc:sqlite:src/main/resources/formula1";
 
@@ -77,6 +82,9 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
 
         btnBackToMain = new JButton("Volver al menu principal");
         btnBackToMain.addActionListener(e -> volverAMainUI());
+
+        btnSaveToFile = new JButton("Descargar informacion");
+        btnSaveToFile.addActionListener(e -> saveToFile());
     }
 
     private void initLayout() {
@@ -101,6 +109,7 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.add(btnBackToMain);
+        bottomPanel.add(btnSaveToFile);
         add(bottomPanel, BorderLayout.SOUTH);
 
         add(splitPanel, BorderLayout.CENTER);
@@ -108,7 +117,6 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
     }
-
 
     private void cargarDatos() throws SQLException {
         Connection conn = null;
@@ -178,6 +186,51 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
 
     private void volverAMainUI() {
         dispose();
+    }
+
+    private void saveToFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar información de pilotos");
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            if (!fileToSave.getName().toLowerCase().endsWith(".html")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".html");
+            }
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+                writer.write("<html><body>");
+                writer.write("<h1>Información de Pilotos</h1>");
+                writer.write("<table border='1'>");
+                writer.write("<tr>");
+                writer.write("<th>Dorsal</th>");
+                writer.write("<th>Nombre</th>");
+                writer.write("<th>Nacimiento</th>");
+                writer.write("<th>Escuderia</th>");
+                writer.write("<th>Nacionalidad</th>");
+                writer.write("<th>Debut</th>");
+                writer.write("<th>Imagen</th>");
+                writer.write("</tr>");
+                for (int i = 0; i < listModel.size(); i++) {
+                    Piloto piloto = listModel.getElementAt(i);
+                    writer.write("<tr>");
+                    writer.write("<td>" + piloto.getNumero() + "</td>");
+                    writer.write("<td>" + piloto.getNombre() + "</td>");
+                    writer.write("<td>" + piloto.getNacimiento() + "</td>");
+                    writer.write("<td>" + piloto.getEscuderia() + "</td>");
+                    writer.write("<td>" + piloto.getNacionalidad() + "</td>");
+                    writer.write("<td>" + piloto.getDebut() + "</td>");
+                    writer.write("<td><img src='" + piloto.getImagen() + "' width='100'></td>");
+                    writer.write("</tr>");
+                }
+                writer.write("</table>");
+                writer.write("</body></html>");
+                JOptionPane.showMessageDialog(this, "Información guardada en " + fileToSave.getAbsolutePath());
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error al guardar el archivo");
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void main(String[] args) {
