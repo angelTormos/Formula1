@@ -27,16 +27,29 @@ public class MainUI extends JFrame implements ActionListener {
     private void initComponents() {
         btnPiloto = new JButton("Abrir lista pilotos");
         btnPiloto.addActionListener(this);
-        btnEscuderia = new JButton("Abrir abrir lista escuderias");
+        btnEscuderia = new JButton("Abrir lista escuderias");
         btnEscuderia.addActionListener(this);
     }
 
     private void initLayout() {
-        JPanel panel = new JPanel(new GridLayout(2, 1));
-        panel.add(btnPiloto);
-        panel.add(btnEscuderia);
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
+        buttonPanel.add(btnPiloto);
+        buttonPanel.add(btnEscuderia);
 
-        add(panel);
+        JPanel imagePanel = new JPanel();
+        JLabel imageLabel = new JLabel();
+        ImageIcon originalIcon = new ImageIcon(getClass().getClassLoader().getResource("F1.png"));
+
+        Image originalImage = originalIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(200, 50, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        imageLabel.setIcon(scaledIcon);
+        imagePanel.add(imageLabel);
+
+        setLayout(new BorderLayout());
+        add(imagePanel, BorderLayout.NORTH);
+        add(buttonPanel, BorderLayout.CENTER);
+
         setTitle("Main UI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();

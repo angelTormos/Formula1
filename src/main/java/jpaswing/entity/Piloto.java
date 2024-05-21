@@ -2,7 +2,7 @@ package jpaswing.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class Escuderia {
+public class Piloto {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -13,11 +13,11 @@ public class Escuderia {
     private String Nacionalidad;
     private String Debut;
     private String Imagen;
-    public Piloto(){
+    public void Piloto(){
 
     }
 
-    public Piloto(Long id, int numero, String nombre, String nacimiento, String escuderia, String nacionalidad, String debut, String imagen) {
+    public void Piloto(Long id, int numero, String nombre, String nacimiento, String escuderia, String nacionalidad, String debut, String imagen) {
         this.id = id;
         Numero = numero;
         Nombre = nombre;

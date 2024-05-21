@@ -23,13 +23,10 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
     private JTextField fieldNacionalidad;
     private JPanel detailPanel;
     private JPanel imagePanel;
-    private JButton btnFirst;
-    private JButton btnPrevious;
-    private JButton btnNext;
-    private JButton btnLast;
-    private JList<Piloto> list;
+    private JList<Escuderia> list;
     private JSplitPane splitPanel;
-    private DefaultListModel<Piloto> listModel;
+    private DefaultListModel<Escuderia> listModel;
+    private JButton btnVolver;
 
     private static final String DB_URL = "jdbc:sqlite:src/main/resources/formula1";
 
@@ -50,11 +47,8 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
         fieldChasis = new JTextField(20);
         fieldNacionalidad = new JTextField(20);
 
-
-        btnFirst = new JButton("First");
-        btnPrevious = new JButton("Previous");
-        btnNext = new JButton("Next");
-        btnLast = new JButton("Last");
+        btnVolver = new JButton("Volver al menu principal");
+        btnVolver.addActionListener(e -> volverAMainUI());
 
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
@@ -66,13 +60,12 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
 
         detailPanel.add(new JLabel("Nombre"));
         detailPanel.add(fieldNombre);
-        detailPanel.add(new JLabel("Nacimiento"));
+        detailPanel.add(new JLabel("Motor"));
         detailPanel.add(fieldMotor);
-        detailPanel.add(new JLabel("Escuderia"));
+        detailPanel.add(new JLabel("Chasis"));
         detailPanel.add(fieldChasis);
         detailPanel.add(new JLabel("Nacionalidad"));
         detailPanel.add(fieldNacionalidad);
-
 
         imagePanel = new JPanel();
         imagePanel.setLayout(new BorderLayout());
@@ -83,9 +76,6 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
         JPanel listPanel = new JPanel(new BorderLayout());
         JScrollPane listScrollPane = new JScrollPane(list);
         listPanel.add(listScrollPane, BorderLayout.CENTER);
-
-        JPanel buttonPanel = createButtonPanel();
-        listPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         JSplitPane rightSplitPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, detailPanel, imagePanel);
         rightSplitPanel.setOneTouchExpandable(true);
@@ -105,17 +95,12 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
         setLayout(new BorderLayout());
         add(splitPanel, BorderLayout.CENTER);
 
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bottomPanel.add(btnVolver);
+        add(bottomPanel, BorderLayout.SOUTH);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
-    }
-
-    private JPanel createButtonPanel() {
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(btnFirst);
-        buttonPanel.add(btnPrevious);
-        buttonPanel.add(btnNext);
-        buttonPanel.add(btnLast);
-        return buttonPanel;
     }
 
     private void cargarDatos() throws SQLException {
@@ -183,19 +168,18 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
         }
 
         fieldNombre.setText(escuderia.getNombre());
-        fieldMotor.setText(escuderia.getNacimiento());
-        fieldChasis.setText(escuderia.getEscuderia());
+        fieldMotor.setText(escuderia.getMotor());
+        fieldChasis.setText(escuderia.getChasis());
         fieldNacionalidad.setText(escuderia.getNacionalidad());
     }
+
     private void volverAMainUI() {
-        MainUI mainUI = new MainUI();
-        mainUI.setVisible(true);
         dispose();
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            PilotoUI ui = new PilotoUI();
+            EscuderiaUI ui = new EscuderiaUI();
             ui.setVisible(true);
         });
     }

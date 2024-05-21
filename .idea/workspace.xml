@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6be5473a-dd6d-46da-b905-0d713b13242e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/controller/EscuderiaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/entity/Escuderia.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/repository/EscuderiaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/repository/EscuderiaRepositoryPagination.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/EscuderiaUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/MainUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/SwingApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/SwingApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/controller/PilotoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/controller/PilotoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/entity/Piloto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/entity/Piloto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/EscuderiaUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/EscuderiaUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/MainUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/PilotoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/PilotoUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,36 +38,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.Lanzador.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.SwingApplication.executor": "Run",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/media/alu10675957/T7/1DAW/Programación/SimuladorBancario",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Lanzador.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.SwingApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/1DAW/Programación/ejemplos-swing&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="jpaswing.ui" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
@@ -125,7 +126,9 @@
       <workItem from="1715671889172" duration="6000" />
       <workItem from="1715672232339" duration="3829000" />
       <workItem from="1715839607998" duration="9260000" />
-      <workItem from="1716185204567" duration="9067000" />
+      <workItem from="1716185204567" duration="9266000" />
+      <workItem from="1716273816884" duration="143000" />
+      <workItem from="1716274033292" duration="3302000" />
     </task>
     <task id="LOCAL-00001" summary="Version 0.0">
       <option name="closed" value="true" />
@@ -151,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715848852912</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Version 0.1">
+      <option name="closed" value="true" />
+      <created>1716194453260</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1716194453260</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,6 +172,8 @@
     <MESSAGE value="Version 0.0" />
     <MESSAGE value="Version 0.0.1" />
     <MESSAGE value="Version 0.0.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.0.2" />
+    <MESSAGE value="Version 0.0.5" />
+    <MESSAGE value="Version 0.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.1" />
   </component>
 </project>

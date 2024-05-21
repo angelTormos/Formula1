@@ -177,8 +177,6 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
     }
 
     private void volverAMainUI() {
-        MainUI mainUI = new MainUI();
-        mainUI.setVisible(true);
         dispose();
     }
 
