@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6be5473a-dd6d-46da-b905-0d713b13242e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/entity/Circuito.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/CircuitoUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/entity/Circuito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/entity/Circuito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/CircuitoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/CircuitoUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/EscuderiaUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/EscuderiaUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/MainUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/PilotoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/PilotoUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +127,9 @@
       <workItem from="1716185204567" duration="9266000" />
       <workItem from="1716273816884" duration="143000" />
       <workItem from="1716274033292" duration="3690000" />
-      <workItem from="1716278109471" duration="2577000" />
+      <workItem from="1716278109471" duration="2768000" />
+      <workItem from="1716365031206" duration="996000" />
+      <workItem from="1716790162116" duration="7572000" />
     </task>
     <task id="LOCAL-00001" summary="Version 0.0">
       <option name="closed" value="true" />
@@ -170,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716277638351</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Version 0.2.1">
+      <option name="closed" value="true" />
+      <created>1716280851849</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716280851849</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,6 +192,7 @@
     <MESSAGE value="Version 0.0.5" />
     <MESSAGE value="Version 0.1" />
     <MESSAGE value="Version 0.1.5" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.1.5" />
+    <MESSAGE value="Version 0.2.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.2.1" />
   </component>
 </project>

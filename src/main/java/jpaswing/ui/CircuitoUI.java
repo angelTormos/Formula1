@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.imageio.ImageIO;
 
 @Component
 public class CircuitoUI extends JFrame implements ListSelectionListener {
@@ -26,6 +28,7 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
     private JTextField fieldVueltaRapida;
     private JTextField fieldLocalizacion;
     private JTextField fieldDistancia;
+    private JTextField fieldVueltas;
     private JPanel detailPanel;
     private JPanel imagePanel;
     private JList<Circuito> list;
@@ -53,6 +56,7 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
         fieldVueltaRapida = new JTextField(20);
         fieldLocalizacion = new JTextField(20);
         fieldDistancia = new JTextField(20);
+        fieldVueltas = new JTextField(20);
 
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
@@ -71,6 +75,8 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
         detailPanel.add(fieldLocalizacion);
         detailPanel.add(new JLabel("Distancia"));
         detailPanel.add(fieldDistancia);
+        detailPanel.add(new JLabel("Nº Vueltas"));
+        detailPanel.add(fieldVueltas);
 
         imagePanel = new JPanel();
         imagePanel.setLayout(new BorderLayout());
@@ -99,7 +105,7 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
         Dimension minimumSize = new Dimension(100, 50);
         listScrollPane.setMinimumSize(minimumSize);
         detailPanel.setMinimumSize(minimumSize);
-        imagePanel.setMinimumSize(new Dimension(500, 281));
+        imagePanel.setMinimumSize(new Dimension(400, 224));
 
         splitPanel.setPreferredSize(new Dimension(800, 600));
 
@@ -122,7 +128,7 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
         try {
             conn = DriverManager.getConnection(DB_URL);
             stmt = conn.createStatement();
-            String sql = "SELECT imagen, nombre, primera, vuelta, localizacion, distancia FROM Circuito";
+            String sql = "SELECT imagen, nombre, primera, vuelta, localizacion, distancia, vueltas FROM Circuito";
             rs = stmt.executeQuery(sql);
 
             listModel.clear();
@@ -134,6 +140,7 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
                 cirucito.setVueltaRapida(rs.getString("vuelta"));
                 cirucito.setLocalizacion(rs.getString("localizacion"));
                 cirucito.setDistancia(rs.getString("distancia"));
+                cirucito.setVueltas(rs.getInt("vueltas"));
 
                 listModel.addElement(cirucito);
             }
@@ -164,7 +171,9 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
     private void updateFields(Circuito circuito) {
         try {
             URL url = new URL(circuito.getImagen());
-            ImageIcon imageIcon = new ImageIcon(url);
+            BufferedImage image = ImageIO.read(url);
+            Image scaledImage = image.getScaledInstance(500, 281, Image.SCALE_SMOOTH);
+            ImageIcon imageIcon = new ImageIcon(scaledImage);
             labelImagen.setIcon(imageIcon);
         } catch (Exception e) {
             labelImagen.setIcon(null);
@@ -176,6 +185,7 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
         fieldVueltaRapida.setText(circuito.getVueltaRapida());
         fieldLocalizacion.setText(circuito.getLocalizacion());
         fieldDistancia.setText(circuito.getDistancia());
+        fieldVueltas.setText(String.valueOf(circuito.getVueltas()));
     }
 
     private void volverAMainUI() {
@@ -184,7 +194,7 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
 
     private void saveToFile() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Guardar información de pilotos");
+        fileChooser.setDialogTitle("Guardar información de circuitos");
         int userSelection = fileChooser.showSaveDialog(this);
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
@@ -194,7 +204,7 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
             }
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
                 writer.write("<html><body>");
-                writer.write("<h1>Información de Pilotos</h1>");
+                writer.write("<h1>Información de Circuitos</h1>");
                 writer.write("<table border='1'>");
                 writer.write("<tr>");
                 writer.write("<th>Nombre</th>");
@@ -202,17 +212,19 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
                 writer.write("<th>Vuelta Rapida</th>");
                 writer.write("<th>Localización</th>");
                 writer.write("<th>Distancia</th>");
+                writer.write("<th>Nº Vueltas</th>");
                 writer.write("<th>Imagen</th>");
                 writer.write("</tr>");
                 for (int i = 0; i < listModel.size(); i++) {
-                    Circuito piloto = listModel.getElementAt(i);
+                    Circuito circuito = listModel.getElementAt(i);
                     writer.write("<tr>");
-                    writer.write("<td>" + piloto.getNombre() + "</td>");
-                    writer.write("<td>" + piloto.getFirstRace() + "</td>");
-                    writer.write("<td>" + piloto.getVueltaRapida() + "</td>");
-                    writer.write("<td>" + piloto.getLocalizacion() + "</td>");
-                    writer.write("<td>" + piloto.getDistancia() + "</td>");
-                    writer.write("<td><img src='" + piloto.getImagen() + "' width='100'></td>");
+                    writer.write("<td>" + circuito.getNombre() + "</td>");
+                    writer.write("<td>" + circuito.getFirstRace() + "</td>");
+                    writer.write("<td>" + circuito.getVueltaRapida() + "</td>");
+                    writer.write("<td>" + circuito.getLocalizacion() + "</td>");
+                    writer.write("<td>" + circuito.getDistancia() + "</td>");
+                    writer.write("<td>" + circuito.getVueltas() + "</td>");
+                    writer.write("<td><img src='" + circuito.getImagen() + "' width='100'></td>");
                     writer.write("</tr>");
                 }
                 writer.write("</table>");
@@ -227,7 +239,7 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            PilotoUI ui = new PilotoUI();
+            CircuitoUI ui = new CircuitoUI();
             ui.setVisible(true);
         });
     }

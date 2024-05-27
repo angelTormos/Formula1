@@ -11,17 +11,19 @@ public class Circuito {
     private String VueltaRapida;
     private String Localizacion;
     private String Distancia;
+    private int Vueltas;
     private String Imagen;
 
     public Circuito() {
     }
 
-    public Circuito(String nombre, String firstRace, String vueltaRapida, String localizacion, String distancia, String imagen) {
+    public Circuito(String nombre, String firstRace, String vueltaRapida, String localizacion, String distancia, int vueltas, String imagen) {
         Nombre = nombre;
         FirstRace = firstRace;
         VueltaRapida = vueltaRapida;
         Localizacion = localizacion;
         Distancia = distancia;
+        Vueltas = vueltas;
         Imagen = imagen;
     }
 
@@ -63,6 +65,14 @@ public class Circuito {
 
     public void setDistancia(String distancia) {
         Distancia = distancia;
+    }
+
+    public int getVueltas() {
+        return Vueltas;
+    }
+
+    public void setVueltas(int vueltas) {
+        Vueltas = vueltas;
     }
 
     public String getImagen() {

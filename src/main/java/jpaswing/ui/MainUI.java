@@ -38,7 +38,7 @@ public class MainUI extends JFrame implements ActionListener {
     }
 
     private void initLayout() {
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
         buttonPanel.add(btnPiloto);
         buttonPanel.add(btnEscuderia);
         buttonPanel.add(btnCircuito);

@@ -33,7 +33,6 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
     private JButton btnVolver;
     private JButton btnSaveToFile;
 
-
     private static final String DB_URL = "jdbc:sqlite:src/main/resources/formula1";
 
     public EscuderiaUI() {
@@ -165,13 +164,14 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
             ImageIcon originalIcon = new ImageIcon(url);
 
             Image originalImage = originalIcon.getImage();
-            int width = originalImage.getWidth(null);
-            int height = originalImage.getHeight(null);
-            int newWidth = 350;
-            int newHeight = (int) (((double) newWidth / width) * height);
-            Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-
-            labelImagen.setIcon(new ImageIcon(scaledImage));
+            int newWidth = labelImagen.getWidth();
+            int newHeight = labelImagen.getHeight();
+            if (newWidth > 0 && newHeight > 0) {
+                Image scaledImage = originalImage.getScaledInstance(600, 178, Image.SCALE_SMOOTH);
+                labelImagen.setIcon(new ImageIcon(scaledImage));
+            } else {
+                labelImagen.setIcon(originalIcon);
+            }
         } catch (Exception e) {
             labelImagen.setIcon(null);
             e.printStackTrace();
@@ -186,6 +186,7 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
     private void volverAMainUI() {
         dispose();
     }
+
     private void saveToFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar información de escuderias");
@@ -198,7 +199,7 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
             }
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
                 writer.write("<html><body>");
-                writer.write("<h1>Información de Pilotos</h1>");
+                writer.write("<h1>Información de Escuderias</h1>");
                 writer.write("<table border='1'>");
                 writer.write("<tr>");
                 writer.write("<th>Nombre</th>");
