@@ -57,7 +57,7 @@ public class MainUI extends JFrame implements ActionListener {
         add(imagePanel, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.CENTER);
 
-        setTitle("Main UI");
+        setTitle("Menú");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
     }

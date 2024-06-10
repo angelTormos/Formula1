@@ -1,6 +1,8 @@
 package jpaswing.ui;
 
 import jpaswing.entity.Piloto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -32,8 +34,17 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
     private JList<Piloto> list;
     private JSplitPane splitPanel;
     private DefaultListModel<Piloto> listModel;
-    private JButton btnBackToMain;
+    private JButton btnMain;
     private JButton btnSaveToFile;
+    private JButton btnEscuderia;
+    private JButton btnCircuito;
+    @Autowired
+    @Lazy
+    private EscuderiaUI escuderiaUI;
+    @Autowired
+    @Lazy
+    private CircuitoUI circuitoUI;
+
 
     private static final String DB_URL = "jdbc:sqlite:src/main/resources/formula1";
 
@@ -80,11 +91,17 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
         imagePanel.setLayout(new BorderLayout());
         imagePanel.add(labelImagen, BorderLayout.CENTER);
 
-        btnBackToMain = new JButton("Volver al menu principal");
-        btnBackToMain.addActionListener(e -> volverAMainUI());
+        btnMain = new JButton("Menu principal");
+        btnMain.addActionListener(e -> volverAMainUI());
 
         btnSaveToFile = new JButton("Descargar informacion");
         btnSaveToFile.addActionListener(e -> saveToFile());
+
+        btnEscuderia = new JButton("Escuderias");
+        btnEscuderia.addActionListener(e -> irEscuderiaUI());
+
+        btnCircuito = new JButton("Circuitos");
+        btnCircuito.addActionListener(e -> irCircuitoUI());
     }
 
     private void initLayout() {
@@ -106,14 +123,19 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
         imagePanel.setMinimumSize(minimumSize);
 
         splitPanel.setPreferredSize(new Dimension(800, 600));
+        JPanel upperPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        upperPanel.add(btnMain);
+        upperPanel.add(btnEscuderia);
+        upperPanel.add(btnCircuito);
+        add(upperPanel, BorderLayout.NORTH);
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        bottomPanel.add(btnBackToMain);
         bottomPanel.add(btnSaveToFile);
         add(bottomPanel, BorderLayout.SOUTH);
 
         add(splitPanel, BorderLayout.CENTER);
 
+        setTitle("Pilotos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
     }
@@ -187,7 +209,14 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
     private void volverAMainUI() {
         dispose();
     }
-
+    private void irEscuderiaUI(){
+        escuderiaUI.setVisible(true);
+        dispose();
+    }
+    private void irCircuitoUI(){
+        circuitoUI.setVisible(true);
+        dispose();
+    }
     private void saveToFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar información de pilotos");

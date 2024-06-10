@@ -1,6 +1,8 @@
 package jpaswing.ui;
 
 import jpaswing.entity.Circuito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -36,6 +38,14 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
     private DefaultListModel<Circuito> listModel;
     private JButton btnBackToMain;
     private JButton btnSaveToFile;
+    private JButton btnPiloto;
+    private JButton btnEscuderia;
+    @Autowired
+    @Lazy
+    private PilotoUI pilotoUI;
+    @Autowired
+    @Lazy
+    private EscuderiaUI escuderiaUI;
 
     private static final String DB_URL = "jdbc:sqlite:src/main/resources/formula1";
 
@@ -82,11 +92,17 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
         imagePanel.setLayout(new BorderLayout());
         imagePanel.add(labelImagen, BorderLayout.CENTER);
 
-        btnBackToMain = new JButton("Volver al menu principal");
+        btnBackToMain = new JButton("Menu principal");
         btnBackToMain.addActionListener(e -> volverAMainUI());
 
         btnSaveToFile = new JButton("Descargar informacion");
         btnSaveToFile.addActionListener(e -> saveToFile());
+
+        btnPiloto = new JButton("Pilotos");
+        btnPiloto.addActionListener(e -> irPiloto());
+
+        btnEscuderia = new JButton("Escuderias");
+        btnEscuderia.addActionListener(e -> irEscuderia());
     }
 
     private void initLayout() {
@@ -109,13 +125,20 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
 
         splitPanel.setPreferredSize(new Dimension(800, 600));
 
+        splitPanel.setPreferredSize(new Dimension(800, 600));
+        JPanel upperPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        upperPanel.add(btnBackToMain);
+        upperPanel.add(btnPiloto);
+        upperPanel.add(btnEscuderia);
+        add(upperPanel, BorderLayout.NORTH);
+
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        bottomPanel.add(btnBackToMain);
         bottomPanel.add(btnSaveToFile);
         add(bottomPanel, BorderLayout.SOUTH);
 
         add(splitPanel, BorderLayout.CENTER);
 
+        setTitle("Circuitos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
     }
@@ -189,6 +212,14 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
     }
 
     private void volverAMainUI() {
+        dispose();
+    }
+    private void irPiloto(){
+        pilotoUI.setVisible(true);
+        dispose();
+    }
+    private void irEscuderia(){
+        escuderiaUI.setVisible(true);
         dispose();
     }
 
