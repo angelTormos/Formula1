@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
@@ -20,7 +23,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CircuitoUI extends JFrame implements ListSelectionListener {
@@ -40,6 +44,9 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
     private JButton btnSaveToFile;
     private JButton btnPiloto;
     private JButton btnEscuderia;
+    private JTextField searchField;
+    private List<Circuito> circuitos;
+
     @Autowired
     @Lazy
     private PilotoUI pilotoUI;
@@ -103,6 +110,19 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
 
         btnEscuderia = new JButton("Escuderias");
         btnEscuderia.addActionListener(e -> irEscuderia());
+
+        searchField = new JTextField(20);
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                filterList();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                filterList();
+            }
+            public void changedUpdate(DocumentEvent e) {
+                filterList();
+            }
+        });
     }
 
     private void initLayout() {
@@ -125,14 +145,15 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
 
         splitPanel.setPreferredSize(new Dimension(800, 600));
 
-        splitPanel.setPreferredSize(new Dimension(800, 600));
         JPanel upperPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         upperPanel.add(btnBackToMain);
         upperPanel.add(btnPiloto);
         upperPanel.add(btnEscuderia);
         add(upperPanel, BorderLayout.NORTH);
 
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        bottomPanel.add(new JLabel("Buscar:"));
+        bottomPanel.add(searchField);
         bottomPanel.add(btnSaveToFile);
         add(bottomPanel, BorderLayout.SOUTH);
 
@@ -155,17 +176,19 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
             rs = stmt.executeQuery(sql);
 
             listModel.clear();
+            circuitos = new ArrayList<>();
             while (rs.next()) {
-                Circuito cirucito = new Circuito();
-                cirucito.setImagen(rs.getString("imagen"));
-                cirucito.setNombre(rs.getString("nombre"));
-                cirucito.setFirstRace(rs.getString("primera"));
-                cirucito.setVueltaRapida(rs.getString("vuelta"));
-                cirucito.setLocalizacion(rs.getString("localizacion"));
-                cirucito.setDistancia(rs.getString("distancia"));
-                cirucito.setVueltas(rs.getInt("vueltas"));
+                Circuito circuito = new Circuito();
+                circuito.setImagen(rs.getString("imagen"));
+                circuito.setNombre(rs.getString("nombre"));
+                circuito.setFirstRace(rs.getString("primera"));
+                circuito.setVueltaRapida(rs.getString("vuelta"));
+                circuito.setLocalizacion(rs.getString("localizacion"));
+                circuito.setDistancia(rs.getString("distancia"));
+                circuito.setVueltas(rs.getInt("vueltas"));
 
-                listModel.addElement(cirucito);
+                circuitos.add(circuito);
+                listModel.addElement(circuito);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -178,6 +201,18 @@ public class CircuitoUI extends JFrame implements ListSelectionListener {
             }
             if (conn != null) {
                 conn.close();
+            }
+        }
+    }
+
+    private void filterList() {
+        String filter = searchField.getText().trim().toLowerCase();
+        listModel.clear();
+
+        for (Circuito circuito : circuitos) {
+            if (circuito.getNombre().toLowerCase().contains(filter) ||
+                    circuito.getLocalizacion().toLowerCase().contains(filter)) {
+                listModel.addElement(circuito);
             }
         }
     }

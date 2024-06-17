@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
 import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,6 +21,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class PilotoUI extends JFrame implements ListSelectionListener {
@@ -38,13 +42,15 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
     private JButton btnSaveToFile;
     private JButton btnEscuderia;
     private JButton btnCircuito;
+    private JTextField searchField;
+    private List<Piloto> pilotos;
+
     @Autowired
     @Lazy
     private EscuderiaUI escuderiaUI;
     @Autowired
     @Lazy
     private CircuitoUI circuitoUI;
-
 
     private static final String DB_URL = "jdbc:sqlite:src/main/resources/formula1";
 
@@ -102,6 +108,19 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
 
         btnCircuito = new JButton("Circuitos");
         btnCircuito.addActionListener(e -> irCircuitoUI());
+
+        searchField = new JTextField(20);
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                filterList();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                filterList();
+            }
+            public void changedUpdate(DocumentEvent e) {
+                filterList();
+            }
+        });
     }
 
     private void initLayout() {
@@ -123,13 +142,16 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
         imagePanel.setMinimumSize(minimumSize);
 
         splitPanel.setPreferredSize(new Dimension(800, 600));
+
         JPanel upperPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         upperPanel.add(btnMain);
         upperPanel.add(btnEscuderia);
         upperPanel.add(btnCircuito);
         add(upperPanel, BorderLayout.NORTH);
 
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        bottomPanel.add(new JLabel("Buscar:"));
+        bottomPanel.add(searchField);
         bottomPanel.add(btnSaveToFile);
         add(bottomPanel, BorderLayout.SOUTH);
 
@@ -152,6 +174,7 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
             rs = stmt.executeQuery(sql);
 
             listModel.clear();
+            pilotos = new ArrayList<>(); // Inicializar la lista de pilotos
             while (rs.next()) {
                 Piloto piloto = new Piloto();
                 piloto.setImagen(rs.getString("imagen"));
@@ -162,6 +185,7 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
                 piloto.setNacionalidad(rs.getString("nacionalidad"));
                 piloto.setDebut(rs.getString("debut"));
 
+                pilotos.add(piloto);
                 listModel.addElement(piloto);
             }
         } catch (SQLException e) {
@@ -175,6 +199,19 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
             }
             if (conn != null) {
                 conn.close();
+            }
+        }
+    }
+
+    private void filterList() {
+        String filter = searchField.getText().trim().toLowerCase();
+        listModel.clear();
+
+        for (Piloto piloto : pilotos) {
+            if (piloto.getNombre().toLowerCase().contains(filter) ||
+                    piloto.getEscuderia().toLowerCase().contains(filter) ||
+                    piloto.getNacionalidad().toLowerCase().contains(filter)) {
+                listModel.addElement(piloto);
             }
         }
     }

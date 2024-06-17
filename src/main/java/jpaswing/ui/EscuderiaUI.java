@@ -19,6 +19,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class EscuderiaUI extends JFrame implements ListSelectionListener {
@@ -36,6 +38,9 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
     private JButton btnSaveToFile;
     private JButton btnPiloto;
     private JButton btnCircuito;
+    private JButton btnBuscar;
+    private JTextField fieldBuscar;
+    private List<Escuderia> escuderias;
     @Autowired
     @Lazy
     private PilotoUI pilotoUI;
@@ -61,7 +66,8 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
         fieldMotor = new JTextField(20);
         fieldChasis = new JTextField(20);
         fieldNacionalidad = new JTextField(20);
-
+        fieldBuscar = new JTextField(20);
+        btnBuscar = new JButton("Buscar");
 
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
@@ -84,7 +90,7 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
         imagePanel.setLayout(new BorderLayout());
         imagePanel.add(labelImagen, BorderLayout.CENTER);
 
-        btnSaveToFile = new JButton("Descargar informacion");
+        btnSaveToFile = new JButton("Descargar información");
         btnSaveToFile.addActionListener(e -> saveToFile());
 
         btnVolver = new JButton("Menu principal");
@@ -95,6 +101,18 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
 
         btnCircuito = new JButton("Circuitos");
         btnCircuito.addActionListener(e -> irCircuito());
+
+        fieldBuscar.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                filterList();
+            }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                filterList();
+            }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                filterList();
+            }
+        });
     }
 
     private void initLayout() {
@@ -127,8 +145,18 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
         upperPanel.add(btnCircuito);
         add(upperPanel, BorderLayout.NORTH);
 
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        bottomPanel.add(btnSaveToFile);
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+
+
+        JPanel leftBottomPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        leftBottomPanel.add(new JLabel("Buscar:"));
+        leftBottomPanel.add(fieldBuscar);
+        bottomPanel.add(leftBottomPanel, BorderLayout.WEST);
+
+        JPanel centerBottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        centerBottomPanel.add(btnSaveToFile);
+        bottomPanel.add(centerBottomPanel, BorderLayout.CENTER);
+
         add(bottomPanel, BorderLayout.SOUTH);
 
         setTitle("Escuderias");
@@ -148,6 +176,7 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
             rs = stmt.executeQuery(sql);
 
             listModel.clear();
+            escuderias = new ArrayList<>();
             while (rs.next()) {
                 Escuderia escuderia = new Escuderia();
                 escuderia.setImagen(rs.getString("imagen"));
@@ -156,6 +185,7 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
                 escuderia.setMotor(rs.getString("motor"));
                 escuderia.setNacionalidad(rs.getString("nacionalidad"));
 
+                escuderias.add(escuderia);
                 listModel.addElement(escuderia);
             }
         } catch (SQLException e) {
@@ -210,13 +240,26 @@ public class EscuderiaUI extends JFrame implements ListSelectionListener {
     private void volverAMainUI() {
         dispose();
     }
+
     private void irPiloto(){
         pilotoUI.setVisible(true);
         dispose();
     }
+
     private void irCircuito(){
         circuitoUI.setVisible(true);
         dispose();
+    }
+
+    private void filterList() {
+        String filter = fieldBuscar.getText().trim().toLowerCase();
+        listModel.clear();
+
+        for (Escuderia escuderia : escuderias) {
+            if (escuderia.getNombre().toLowerCase().contains(filter)) {
+                listModel.addElement(escuderia);
+            }
+        }
     }
 
     private void saveToFile() {
