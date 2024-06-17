@@ -174,7 +174,7 @@ public class PilotoUI extends JFrame implements ListSelectionListener {
             rs = stmt.executeQuery(sql);
 
             listModel.clear();
-            pilotos = new ArrayList<>(); // Inicializar la lista de pilotos
+            pilotos = new ArrayList<>();
             while (rs.next()) {
                 Piloto piloto = new Piloto();
                 piloto.setImagen(rs.getString("imagen"));
