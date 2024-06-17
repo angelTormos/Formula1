@@ -7,7 +7,6 @@
     <list default="true" id="6be5473a-dd6d-46da-b905-0d713b13242e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/CircuitoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/CircuitoUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/EscuderiaUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/EscuderiaUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jpaswing/ui/PilotoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpaswing/ui/PilotoUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -147,7 +146,7 @@
       <workItem from="1716802880622" duration="59000" />
       <workItem from="1716878671605" duration="4515000" />
       <workItem from="1717999344645" duration="75000" />
-      <workItem from="1718604170849" duration="602000" />
+      <workItem from="1718604170849" duration="2724000" />
     </task>
     <task id="LOCAL-00001" summary="Version 0.0">
       <option name="closed" value="true" />
@@ -213,7 +212,23 @@
       <option name="project" value="LOCAL" />
       <updated>1717999387436</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Version 1.5">
+      <option name="closed" value="true" />
+      <created>1718604825696</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1718604825696</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Version 1.5">
+      <option name="closed" value="true" />
+      <created>1718605361568</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1718605361568</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,7 +255,8 @@
     <MESSAGE value="Version 0.2.1" />
     <MESSAGE value="Version 0.7" />
     <MESSAGE value="Version 1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 1.0" />
+    <MESSAGE value="Version 1.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 1.5" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
